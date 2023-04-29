@@ -57,7 +57,7 @@ class Almacen:
                     item.vencimiento = parametro
                 else:
                     print("Opcion invalida.")
-                print("El producto se ha modificado a: ", item)
+                print(f"El producto se ha modificado a:  {item}")
 
     def cargar_desde_archivo(self, nombre_archivo):
         with open(nombre_archivo, "r") as f:
