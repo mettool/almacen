@@ -1,4 +1,5 @@
 from producto import Producto
+import random
 # Clase menu
 
 class Menu:
@@ -59,15 +60,15 @@ class Menu:
             print("No se encontraron productos.")
         else:
             print(f"Se encontro el producto {nombre_abarrote}")
-            for abarrote in resultado_busqueda:
-                print("Producto:", abarrote.nombre,"Precio:", abarrote.precio)
+            for sku, abarrote in resultado_busqueda.items():
+                print(f"{sku}: {abarrote}")
     
     def crear_reporte(self):
         nombre_archivo = input("Ingrese el nombre de su reporte: ")
         with open(nombre_archivo + ".txt", "w") as f:
             f.write("************ REPORTE DE ABARROTES ************" + "\n")
-            for producto in self.almacen.lista_productos:
-                f.write(f"{producto}\n")
+            for sku, producto in self.almacen.lista_productos.items():
+                f.write(f"{sku}: {producto}\n")
 
     def carga_masiva(self):
         nombre_archivo = input("Ingrese nombre de archivo: ")

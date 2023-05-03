@@ -1,23 +1,25 @@
 from producto import Producto
+import random
 
 class Almacen:
     def __init__(self):
-        self.lista_productos = []
+        self.lista_productos = {}
 
 
     # Funciones
     def listar_producto(self):
-        for item in self.lista_productos:
-            print(item)
+        for sku, item in self.lista_productos.items():
+            print(f"{sku}: {item}")
 
     def agregar_producto(self, item):
-        self.lista_productos.append(item)
+        sku = random.randint(1000, 1999)
+        self.lista_productos[sku] = item
 
     def buscar_producto(self, item):
-        productos_encontrados = []
-        for abarrote in self.lista_productos:
+        productos_encontrados = {}
+        for sku, abarrote in self.lista_productos.items():
             if abarrote.nombre == item:
-                productos_encontrados.append(abarrote)
+                productos_encontrados[sku] = abarrote
         return productos_encontrados
     
     def eliminar_producto(self, item):
@@ -26,9 +28,9 @@ class Almacen:
         if len(resultado_busqueda) == 0:
             print("No se encontraron productos.")
         else:
-            for item in resultado_busqueda:
-                print(f"Se ha eliminado el producto {item}")
-                self.lista_productos.remove(item)
+            for sku, item in resultado_busqueda.items():
+                print(f"Se ha eliminado el producto {sku}: {self.lista_productos.pop(sku)}")
+                
 
     def modificar_producto(self, item):
         #Utilizo la funcion ya existente para buscar
@@ -36,7 +38,7 @@ class Almacen:
         if len(resultado_busqueda) == 0:
             print("No se encontraron productos.")
         else:
-            for item in resultado_busqueda:
+            for sku, item in resultado_busqueda.items():
                 print(f"Seleccione el parametro a modificar del producto {item}")
                 print("1.- Nombre")
                 print("2.- Descripcion")
@@ -57,7 +59,7 @@ class Almacen:
                     item.vencimiento = parametro
                 else:
                     print("Opcion invalida.")
-                print(f"El producto se ha modificado a:  {item}")
+                print(f"El producto se ha modificado a: {sku}: {item}")
 
     def cargar_desde_archivo(self, nombre_archivo):
         with open(nombre_archivo, "r") as f:
